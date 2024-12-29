@@ -20,6 +20,7 @@ public class TouchscreenInput : MonoBehaviour
     public UnityEvent<Vector2> LookEvent;
     public UnityEvent<bool> JumpEvent;
     public UnityEvent<bool> SprintEvent;
+    public UnityEvent CameraSwitchEvent;
     
     private UIDocument m_Document;
 
@@ -62,8 +63,11 @@ public class TouchscreenInput : MonoBehaviour
         });
 
         var jumpButton = m_Document.rootVisualElement.Q<VisualElement>("ButtonJump");
+        jumpButton.RegisterCallback<PointerEnterEvent>(evt => { CameraSwitchEvent.Invoke(); });
+        /*
         jumpButton.RegisterCallback<PointerEnterEvent>(evt => { JumpEvent.Invoke(true); });
         jumpButton.RegisterCallback<PointerLeaveEvent>(evt => { JumpEvent.Invoke(false); });
+        */
         
         var sprintButton = m_Document.rootVisualElement.Q<VisualElement>("ButtonSprint");
         sprintButton.RegisterCallback<PointerEnterEvent>(evt => { SprintEvent.Invoke(true); });

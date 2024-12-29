@@ -75,6 +75,12 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        [Tooltip("The Seconday Virtual Camera to switch to")]
+        public GameObject SecondaryVirtualCamera;
+
+        [Tooltip("Player Mesh")]
+        public GameObject PlayerMesh;
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -128,14 +134,15 @@ namespace StarterAssets
             // get a reference to our main camera
             if (_mainCamera == null)
             {
-                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                //_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+                _mainCamera = CinemachineCameraTarget;
             }
         }
 
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
+
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
@@ -150,6 +157,12 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            var touchscreenInput = FindObjectOfType<TouchscreenInput>();
+            if(touchscreenInput != null)
+            {
+                touchscreenInput.CameraSwitchEvent.AddListener(SwitchPerspective);
+            }
         }
 
         private void Update()
@@ -159,6 +172,7 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            HandleCameraSwitch();
         }
 
         private void LateUpdate()
@@ -207,8 +221,13 @@ namespace StarterAssets
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
             // Cinemachine will follow this target
-            CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
-                _cinemachineTargetYaw, 0.0f);
+            //CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
+
+            if(_mainCamera != null)
+            {
+                _mainCamera.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
+            }
+            
         }
 
         private void Move()
@@ -387,6 +406,33 @@ namespace StarterAssets
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
+        }
+
+        // Ar7 Custom Function for switching cameras
+        private void HandleCameraSwitch()
+        {
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                bool isPrimaryActive = CinemachineCameraTarget.activeSelf;
+                CinemachineCameraTarget.SetActive(!CinemachineCameraTarget.activeSelf);
+                SecondaryVirtualCamera.SetActive(!SecondaryVirtualCamera.activeSelf);
+
+                // Update the camera target reference
+                _mainCamera = isPrimaryActive ? SecondaryVirtualCamera : CinemachineCameraTarget;
+
+                PlayerMesh.SetActive(!isPrimaryActive);
+            }
+        }
+
+        public void SwitchPerspective()
+        {
+            bool isPrimaryActive = CinemachineCameraTarget.activeSelf;
+            CinemachineCameraTarget.SetActive(!CinemachineCameraTarget.activeSelf);
+            SecondaryVirtualCamera.SetActive(!SecondaryVirtualCamera.activeSelf);
+
+            _mainCamera = isPrimaryActive ? SecondaryVirtualCamera : CinemachineCameraTarget;
+
+            PlayerMesh.SetActive(!isPrimaryActive);
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using PlayFab.ClientModels;
 using UnityEngine;
 using PlayFab;
-// using PlayFab.ClientModels;
 using TMPro;
 
 public class LeaderboardManager : MonoBehaviour
@@ -34,7 +33,7 @@ public class LeaderboardManager : MonoBehaviour
     }
 
     void OnError(PlayFabError error){
-        Debug.Log("Error while logging in/creating account");
+        Debug.Log("Error while updating scores");
         Debug.Log(error.GenerateErrorReport());
     }
 
@@ -72,7 +71,7 @@ public class LeaderboardManager : MonoBehaviour
             GameObject newGo = Instantiate(rowPrefab, rowsParent);
             TMP_Text[] texts = newGo.GetComponentsInChildren<TMP_Text>();
             texts[0].text = (item.Position + 1).ToString();
-            texts[1].text = item.PlayFabId;
+            texts[1].text = item.DisplayName;
             texts[2].text = item.StatValue.ToString();
             Debug.Log(item.Position + "" + item.PlayFabId + "" + item.StatValue);
         }

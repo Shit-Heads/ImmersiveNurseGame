@@ -7,7 +7,6 @@ public class QuestGiver : MonoBehaviour
 {
     public Quest quest;
     public Player Player;
-    public GameObject QuestWindow;
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI descriptionText;
     public TextMeshProUGUI experienceText;
@@ -21,6 +20,13 @@ public class QuestGiver : MonoBehaviour
         descriptionText.text = quest.description;
         experienceText.text = quest.experienceReward.ToString();
         goldText.text = quest.goldReward.ToString();
+    }
+
+    public void AcceptQuest()
+    {
+        questWindow.SetActive(false);
+        quest.isActive = true;
+        Player.quest = quest;
     }
 
 }

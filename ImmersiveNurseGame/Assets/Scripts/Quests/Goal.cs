@@ -10,20 +10,22 @@ public class Goal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && questGiver.quest.isActive)
+        if (other.CompareTag("Player") && questGiver.CurrentQuest.isActive)
         {
             playerInRange = true;
             goalWindow.SetActive(true);
-            // Additional logic to mark the goal as completed
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && playerInRange)
         {
             playerInRange = false;
             goalWindow.SetActive(false);
+
+            // Mark quest as completed
+            questGiver.CompleteQuest();
         }
     }
 }

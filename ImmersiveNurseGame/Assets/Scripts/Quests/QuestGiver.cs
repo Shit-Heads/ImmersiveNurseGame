@@ -6,6 +6,8 @@ using UnityEngine;
 public class QuestGiver : MonoBehaviour
 {
     public Quest quest;
+    public NPC NPC;
+    public GameObject playerwindow;
     public Player Player;
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI descriptionText;
@@ -13,6 +15,8 @@ public class QuestGiver : MonoBehaviour
     public TextMeshProUGUI goldText;
 
     public GameObject questWindow;
+    public Goal goal; // Reference to the Goal script
+
     public void OpenQuestWindow()
     {
         questWindow.SetActive(true);
@@ -27,6 +31,8 @@ public class QuestGiver : MonoBehaviour
         questWindow.SetActive(false);
         quest.isActive = true;
         Player.quest = quest;
+        goal.playerInRange = false; // Ensure goal starts inactive
+        NPC.OnQuestAccepted(); // Notify NPC that the quest is accepted
     }
 
 }

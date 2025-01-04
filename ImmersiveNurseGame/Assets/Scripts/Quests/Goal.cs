@@ -14,18 +14,21 @@ public class Goal : MonoBehaviour
         {
             playerInRange = true;
             goalWindow.SetActive(true);
+
+            // Check if the current quest is completed by entering the range
+            if (questGiver.CurrentQuest.completionType == QuestCompletionType.EnterRange)
+            {
+                questGiver.CompleteQuest();
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && playerInRange)
+        if (other.CompareTag("Player"))
         {
             playerInRange = false;
             goalWindow.SetActive(false);
-
-            // Mark quest as completed
-            questGiver.CompleteQuest();
         }
     }
 }

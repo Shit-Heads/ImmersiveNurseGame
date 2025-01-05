@@ -13,7 +13,7 @@ public class QuestGiver : MonoBehaviour
     public TextMeshProUGUI goldText;
     public GameObject questWindow;
     public ActivityManager activityManager; // Reference to ActivityManager
-    public GameObject touchControl;
+    public GameObject touchControlManager;
     public Goal goal;
     public Player Player;
 
@@ -31,7 +31,6 @@ public class QuestGiver : MonoBehaviour
         descriptionText.text = CurrentQuest.description;
         experienceText.text = CurrentQuest.experienceReward.ToString();
         goldText.text = CurrentQuest.goldReward.ToString();
-        touchControl.SetActive(false);
     }
 
     public void AcceptQuest()
@@ -45,7 +44,7 @@ public class QuestGiver : MonoBehaviour
         questWindow.SetActive(false);
         CurrentQuest.isActive = true;
         goal.playerInRange = false;
-        touchControl.SetActive(true);   
+        touchControlManager.gameObject.GetComponent<TouchControlManager>().ToggleTouchUI(true);
     }
 
     public void CompleteQuest()

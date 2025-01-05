@@ -8,6 +8,7 @@ public class NPC : MonoBehaviour
     public bool questAccepted = false;
     public GameObject playerWindow;
     public ActivityManager activityManager; // Reference to ActivityManager
+    public GameObject touchControlManager;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,8 +16,7 @@ public class NPC : MonoBehaviour
         {
             playerInRange = true;
             playerWindow.SetActive(true);
-
-            activityManager.DisableTouchController();
+            touchControlManager.gameObject.GetComponent<TouchControlManager>().ToggleTouchUI(false);
         }
     }
 
@@ -26,8 +26,6 @@ public class NPC : MonoBehaviour
         {
             playerInRange = false;
             playerWindow.SetActive(false);
-
-            
         }
     }
 
@@ -35,7 +33,5 @@ public class NPC : MonoBehaviour
     {
         questAccepted = true;
         playerWindow.SetActive(false);
-
-        activityManager.EnableTouchController();
     }
 }

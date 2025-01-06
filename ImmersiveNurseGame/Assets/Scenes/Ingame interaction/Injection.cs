@@ -34,9 +34,6 @@ public class Injection : MonoBehaviour
                 AlignInjectionToFrontOfCamera();
             }
 
-            // Update the image to match the injection's transform
-            UpdateImageTransform();
-
             // Check if the injection is close enough to the patient
             CheckInjectionToPatient();
         }
@@ -49,6 +46,7 @@ public class Injection : MonoBehaviour
             StartCoroutine(MoveInjectionToTarget(selectedInjection.transform, originalPosition, originalRotation));
             isInteractable = false;
             selectedInjection.layer = originalLayer; // Restore original layer
+            injectionImage.gameObject.SetActive(true); // Make the image visible
         }
         else
         {
@@ -67,6 +65,7 @@ public class Injection : MonoBehaviour
 
                     // Align the injection to the front of the camera
                     AlignInjectionToFrontOfCamera();
+                    injectionImage.gameObject.SetActive(false); // Make the image disappear
                 }
             }
         }
@@ -113,13 +112,6 @@ public class Injection : MonoBehaviour
 
         injection.position = targetPosition;
         injection.rotation = targetRotation;
-    }
-
-    private void UpdateImageTransform()
-    {
-        Vector3 screenPosition = Camera.main.WorldToScreenPoint(selectedInjection.transform.position);
-        injectionImage.position = screenPosition;
-        injectionImage.rotation = selectedInjection.transform.rotation;
     }
 
     private void CheckInjectionToPatient()

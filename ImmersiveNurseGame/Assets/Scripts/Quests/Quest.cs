@@ -21,6 +21,3 @@ public enum QuestCompletionType
     DefeatEnemy,
     CustomAction // For special or custom actions
 }
-
-
-

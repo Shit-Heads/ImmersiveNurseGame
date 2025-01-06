@@ -1,6 +1,6 @@
 using System.Collections;
-using TMPro;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class QuestGiver : MonoBehaviour
@@ -12,7 +12,6 @@ public class QuestGiver : MonoBehaviour
     public TextMeshProUGUI experienceText;
     public TextMeshProUGUI goldText;
     public GameObject questWindow;
-    public ActivityManager activityManager; // Reference to ActivityManager
     public GameObject touchControlManager;
     public Goal goal;
     public Player Player;
@@ -45,6 +44,7 @@ public class QuestGiver : MonoBehaviour
         CurrentQuest.isActive = true;
         goal.playerInRange = false;
         touchControlManager.gameObject.GetComponent<TouchControlManager>().ToggleTouchUI(true);
+        Player.UpdateHealth(-1); // Deduct one life upon accepting the quest
     }
 
     public void CompleteQuest()
@@ -53,7 +53,7 @@ public class QuestGiver : MonoBehaviour
         {
             CurrentQuest.isActive = false;
             CurrentQuest.isCompleted = true;
-            Player.experience += CurrentQuest.experienceReward;
+            Player.UpdateExperience(CurrentQuest.experienceReward);
             Player.gold += CurrentQuest.goldReward;
 
             Debug.Log($"Quest '{CurrentQuest.title}' completed!");
@@ -69,5 +69,4 @@ public class QuestGiver : MonoBehaviour
             }
         }
     }
-
 }

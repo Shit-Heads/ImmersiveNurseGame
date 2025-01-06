@@ -10,10 +10,15 @@ public class Goal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && questGiver.CurrentQuest.isActive)
+        if (other.CompareTag("Player") && questGiver != null && questGiver.CurrentQuest != null && questGiver.CurrentQuest.isActive)
         {
             playerInRange = true;
-            goalWindow.SetActive(true);
+
+            // Show the goal window if the quest is active and not completed
+            if (goalWindow != null)
+            {
+                goalWindow.SetActive(true);
+            }
 
             // Check if the current quest is completed by entering the range
             if (questGiver.CurrentQuest.completionType == QuestCompletionType.EnterRange)
@@ -28,7 +33,12 @@ public class Goal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            goalWindow.SetActive(false);
+
+            // Hide the goal window when the player exits the range
+            if (goalWindow != null)
+            {
+                goalWindow.SetActive(false);
+            }
         }
     }
 }

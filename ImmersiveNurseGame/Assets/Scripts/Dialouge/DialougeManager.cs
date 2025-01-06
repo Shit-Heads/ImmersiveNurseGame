@@ -7,53 +7,44 @@ public class DialougeManager : MonoBehaviour
 {
     public TMP_Text nameText;
     public TMP_Text dialougeText;
-    public AudioClip dialougeAudio;
+    public AudioSource dialougeAudio;
     public Animator animator;
-
-
     public GameObject nextButton;
-
-
     private Queue<string> sentences;
-    private Queue<Sprite> images;
+    private Queue<AudioClip> audioClips;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         sentences = new Queue<string>();
-        images = new Queue<Sprite>();
+        audioClips = new Queue<AudioClip>();
         nextButton.SetActive(false);
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         
     }
 
-
     public void StartDialouge(Dialouge dialouge)
     {
         animator.SetBool("IsOpen", true);
 
-
         nameText.text = dialouge.name;
 
-
         sentences.Clear();
-        images.Clear();
-
+        audioClips.Clear();
 
         foreach (string sentence in dialouge.sentences)
         {
             sentences.Enqueue(sentence);
         }
+        foreach (AudioClip audio in dialouge.audioClips)
+        {
+            audioClips.Enqueue(audio);
+        }
 
         DisplayNextSentence();
     }
-
 
     public void DisplayNextSentence()
     {
@@ -63,12 +54,15 @@ public class DialougeManager : MonoBehaviour
             return;
         }
 
-
         string sentence = sentences.Dequeue();
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
-    }
 
+        if(audioClips.Count == 0){
+            AudioClip audio = audioClips.Dequeue();
+            dialougeAudio.PlayOneShot(audio, 1);
+        }
+    }
 
     IEnumerator TypeSentence(string sentence)
     {
@@ -79,7 +73,6 @@ public class DialougeManager : MonoBehaviour
             yield return null;
         }
     }
-
 
     public void EndDialouge()
     {

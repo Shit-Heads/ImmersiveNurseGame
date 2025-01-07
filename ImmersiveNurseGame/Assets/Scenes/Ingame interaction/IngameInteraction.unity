@@ -439,6 +439,8 @@ MonoBehaviour:
   patientTransform: {fileID: 407875588}
   injectionDistanceThreshold: 2
   interaction_Info_UI: {fileID: 1486224411}
+  pointer: {fileID: 2130388126}
+  text: {fileID: 1486224411}
 --- !u!65 &347694784
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1838,7 +1840,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6550829650520813627, guid: d007771766481bc4687336dd26b55282, type: 3}
       propertyPath: cursorLocked
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7345196694595056636, guid: d007771766481bc4687336dd26b55282, type: 3}
       propertyPath: m_LocalPosition.x

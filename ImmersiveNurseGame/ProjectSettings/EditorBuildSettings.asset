@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Leaderboard/LeaderboardTest.unity
     guid: 9c4d56e7ef7409c4cad4f806aa9025ed
   - enabled: 0
-    path: Assets/Scenes/Ingame interaction/IngameInteraction.unity
+    path: Assets/Scenes/Ingame interaction/Injection.unity
     guid: 4be58b145d5109b4f94b0992475a0889
   - enabled: 1
     path: Assets/Scenes/NurseController/NurseControllerTest.unity

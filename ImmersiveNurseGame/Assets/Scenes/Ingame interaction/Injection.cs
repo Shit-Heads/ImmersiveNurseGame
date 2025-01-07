@@ -17,6 +17,11 @@ public class Injection : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ToggleInteraction();
+        }
+
         if (isInteractable && selectedInjection != null)
         {
             if (Input.GetMouseButton(0) || Input.touchCount > 0)
@@ -32,24 +37,20 @@ public class Injection : MonoBehaviour
             // Check if the injection is close enough to the patient
             CheckInjectionToPatient();
         }
-        else
-        {
-            DetectInjectionClick();
-        }
     }
 
-    private void DetectInjectionClick()
+    private void ToggleInteraction()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (isInteractable)
         {
-            Vector3 mousePosition = Input.mousePosition;
-            if (mousePosition.x < 0 || mousePosition.y < 0 || mousePosition.x > Screen.width || mousePosition.y > Screen.height)
-            {
-                Debug.LogWarning("Mouse position is out of screen bounds.");
-                return;
-            }
-
-            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+            StartCoroutine(MoveInjectionToTarget(selectedInjection.transform, originalPosition, originalRotation));
+            isInteractable = false;
+            selectedInjection.layer = originalLayer; // Restore original layer
+            injectionImage.gameObject.SetActive(true); // Make the image visible
+        }
+        else
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 InteractableObject interactable = hit.transform.GetComponent<InteractableObject>();
@@ -70,17 +71,6 @@ public class Injection : MonoBehaviour
         }
     }
 
-    private void ToggleInteraction()
-    {
-        if (isInteractable)
-        {
-            StartCoroutine(MoveInjectionToTarget(selectedInjection.transform, originalPosition, originalRotation));
-            isInteractable = false;
-            selectedInjection.layer = originalLayer; // Restore original layer
-            injectionImage.gameObject.SetActive(true); // Make the image visible
-        }
-    }
-
     private void AlignInjectionToFrontOfCamera()
     {
         Vector3 targetPosition = playerCameraTransform.position + playerCameraTransform.forward * injectionOffset.z + playerCameraTransform.up * injectionOffset.y + playerCameraTransform.right * injectionOffset.x;
@@ -89,14 +79,7 @@ public class Injection : MonoBehaviour
 
     private void MoveInjectionWithInput()
     {
-        Vector3 mousePosition = Input.mousePosition;
-        if (mousePosition.x < 0 || mousePosition.y < 0 || mousePosition.x > Screen.width || mousePosition.y > Screen.height)
-        {
-            Debug.LogWarning("Mouse position is out of screen bounds.");
-            return;
-        }
-
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Input.touchCount > 0)
         {

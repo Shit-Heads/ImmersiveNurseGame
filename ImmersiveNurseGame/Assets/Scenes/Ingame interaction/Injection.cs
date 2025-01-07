@@ -10,6 +10,8 @@ public class Injection : MonoBehaviour
     public Transform patientTransform; // Reference to the patient's transform
     public float injectionDistanceThreshold = 0.5f; // Distance threshold to consider the injection successful
     public GameObject interaction_Info_UI; // Reference to the interaction info UI
+    public GameObject pointer; // Reference to the pointer UI element
+    public GameObject text; // Reference to the text UI element
     private GameObject selectedInjection;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
@@ -62,6 +64,7 @@ public class Injection : MonoBehaviour
             selectedInjection.layer = originalLayer; // Restore original layer
             injectionImage.gameObject.SetActive(true); // Make the image visible
             interaction_Info_UI.SetActive(true); // Make the interaction info UI visible
+            ShowPointerAndText(); // Show pointer and text
         }
         else
         {
@@ -82,6 +85,7 @@ public class Injection : MonoBehaviour
                     AlignInjectionToFrontOfCamera();
                     injectionImage.gameObject.SetActive(false); // Make the image disappear
                     interaction_Info_UI.SetActive(false); // Make the interaction info UI disappear
+                    HidePointerAndText(); // Hide pointer and text
                 }
             }
         }
@@ -139,5 +143,17 @@ public class Injection : MonoBehaviour
             Debug.Log("Injection successful!");
             // You can add additional logic here, such as playing an animation or sound
         }
+    }
+
+    private void ShowPointerAndText()
+    {
+        pointer.SetActive(true);
+        text.SetActive(true);
+    }
+
+    private void HidePointerAndText()
+    {
+        pointer.SetActive(false);
+        text.SetActive(false);
     }
 }

@@ -18,37 +18,24 @@ public class SelectionManager : MonoBehaviour
 
     void Update()
     {
-        Vector3 mousePosition = Input.mousePosition;
-
-        // Check if the mouse position is within the screen bounds
-        if (mousePosition.x >= 0 && mousePosition.x <= Screen.width && mousePosition.y >= 0 && mousePosition.y <= Screen.height)
+        if (injectionScript.IsInjectionActive())
         {
-            // Update the position of the pointer image based on the cursor position
-            pointerImage.position = mousePosition;
+            interaction_Info_UI.SetActive(false);
+            return;
+        }
 
-            if (injectionScript.IsInjectionActive())
+        Ray ray = Camera.main.ScreenPointToRay(pointerImage.position);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            var selectionTransform = hit.transform;
+
+            if (selectionTransform.GetComponent<InteractableObject>())
             {
-                interaction_Info_UI.SetActive(false);
-                return;
-            }
-
-            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                var selectionTransform = hit.transform;
-
-                if (selectionTransform.GetComponent<InteractableObject>())
-                {
-                    interaction_text.text = selectionTransform.GetComponent<InteractableObject>().GetItemName();
-                    interaction_Info_UI.SetActive(true);
-                    // Update the position of the interaction info UI to be near the pointer image
-                    interaction_Info_UI.transform.position = mousePosition + new Vector3(10, -10, 0); // Adjust the offset as needed
-                }
-                else
-                {
-                    interaction_Info_UI.SetActive(false);
-                }
+                interaction_text.text = selectionTransform.GetComponent<InteractableObject>().GetItemName();
+                interaction_Info_UI.SetActive(true);
+                // Update the position of the interaction info UI to be near the pointer image
+                interaction_Info_UI.transform.position = pointerImage.position + new Vector3(10, -10, 0); // Adjust the offset as needed
             }
             else
             {

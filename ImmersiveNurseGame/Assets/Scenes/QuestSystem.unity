@@ -310,6 +310,7 @@ MonoBehaviour:
   playerInRange: 0
   goalWindow: {fileID: 277981337}
   questGiver: {fileID: 1638785210}
+  missionWaypoint: {fileID: 0}
 --- !u!4 &76002871 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8718778828885884488, guid: e5f4daf24146ee040b5a2d7a73b30aa0, type: 3}
@@ -1807,6 +1808,7 @@ MonoBehaviour:
     experienceReward: 0
     goldReward: 0
     completionType: 0
+    target: {fileID: 0}
 --- !u!4 &864581880
 Transform:
   m_ObjectHideFlags: 0
@@ -3120,6 +3122,7 @@ MonoBehaviour:
     experienceReward: 20
     goldReward: 100
     completionType: 0
+    target: {fileID: 76002871}
   - isActive: 0
     isCompleted: 0
     title: 'Scenario 2: Before a Clean/Aseptic Procedure'
@@ -3128,6 +3131,7 @@ MonoBehaviour:
     experienceReward: 20
     goldReward: 90
     completionType: 1
+    target: {fileID: 1863711863}
   titleText: {fileID: 1460553864}
   descriptionText: {fileID: 800041756}
   experienceText: {fileID: 1412738872}
@@ -3137,6 +3141,7 @@ MonoBehaviour:
   goal: {fileID: 76002867}
   Player: {fileID: 864581879}
   guidanceSystem: {fileID: 1373467347}
+  missionWaypoint: {fileID: 1794912023}
 --- !u!4 &1638785211
 Transform:
   m_ObjectHideFlags: 0
@@ -3821,7 +3826,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   img: {fileID: 1773682005}
-  target: {fileID: 76002871}
   meter: {fileID: 48869953}
   offset: {x: 0, y: 0, z: 0}
 --- !u!1 &1828078777

@@ -7,6 +7,7 @@ public class Goal : MonoBehaviour
     public bool playerInRange;
     public GameObject goalWindow;
     public QuestGiver questGiver;
+    public MissionWaypoint missionWaypoint; // Reference to MissionWaypoint
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,13 +15,17 @@ public class Goal : MonoBehaviour
         {
             playerInRange = true;
 
-            // Show the goal window if the quest is active and not completed
             if (goalWindow != null)
             {
                 goalWindow.SetActive(true);
             }
 
-            // Check if the current quest is completed by entering the range
+            // Deactivate the marker when the quest is completed
+            if (missionWaypoint != null)
+            {
+                missionWaypoint.Deactivate();
+            }
+
             if (questGiver.CurrentQuest.completionType == QuestCompletionType.EnterRange)
             {
                 questGiver.CompleteQuest();
@@ -34,7 +39,6 @@ public class Goal : MonoBehaviour
         {
             playerInRange = false;
 
-            // Hide the goal window when the player exits the range
             if (goalWindow != null)
             {
                 goalWindow.SetActive(false);

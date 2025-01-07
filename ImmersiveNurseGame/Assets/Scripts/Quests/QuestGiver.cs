@@ -15,6 +15,7 @@ public class QuestGiver : MonoBehaviour
     public GameObject touchControlManager;
     public Goal goal;
     public Player Player;
+    public GuidanceSystem guidanceSystem; // Reference to the GuidanceSystem
 
     public Quest CurrentQuest => quests[currentQuestIndex];
 
@@ -45,6 +46,9 @@ public class QuestGiver : MonoBehaviour
         goal.playerInRange = false;
         touchControlManager.gameObject.GetComponent<TouchControlManager>().ToggleTouchUI(true);
         Player.UpdateHealth(-1); // Deduct one life upon accepting the quest
+
+        // Update guidance for the new quest
+        guidanceSystem.UpdateGuidance(CurrentQuest);
     }
 
     public void CompleteQuest()
@@ -67,6 +71,9 @@ public class QuestGiver : MonoBehaviour
             {
                 Debug.Log("All quests completed!");
             }
+
+            // Clear guidance after completing the quest
+            guidanceSystem.ClearGuidance();
         }
     }
 }

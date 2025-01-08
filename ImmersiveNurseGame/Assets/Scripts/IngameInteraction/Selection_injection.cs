@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public class SelectionManager : MonoBehaviour
 {
-
     public GameObject interaction_Info_UI;
+    public RectTransform pointerImage; // Reference to the pointer image's RectTransform
     Text interaction_text;
+    public Injection injectionScript; // Reference to the Injection script
 
     private void Start()
     {
@@ -17,21 +18,33 @@ public class SelectionManager : MonoBehaviour
 
     void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (injectionScript.IsInjectionActive())
+        {
+            interaction_Info_UI.SetActive(false);
+            return;
+        }
+
+        Ray ray = Camera.main.ScreenPointToRay(pointerImage.position);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
             var selectionTransform = hit.transform;
 
-            if (selectionTransform.GetComponent<InteractableObject>() )
+            if (selectionTransform.GetComponent<InteractableObject>())
             {
                 interaction_text.text = selectionTransform.GetComponent<InteractableObject>().GetItemName();
                 interaction_Info_UI.SetActive(true);
+                // Update the position of the interaction info UI to be near the pointer image
+                interaction_Info_UI.transform.position = pointerImage.position + new Vector3(10, -10, 0); // Adjust the offset as needed
             }
             else
             {
                 interaction_Info_UI.SetActive(false);
             }
+        }
+        else
+        {
+            interaction_Info_UI.SetActive(false);
         }
     }
 }

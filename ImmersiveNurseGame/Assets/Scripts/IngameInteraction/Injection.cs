@@ -9,17 +9,28 @@ public class Injection : MonoBehaviour
     public RectTransform injectionImage; // Reference to the image's RectTransform
     public Transform patientTransform; // Reference to the patient's transform
     public float injectionDistanceThreshold = 0.5f; // Distance threshold to consider the injection successful
+    public GameObject interaction_Info_UI; // Reference to the interaction info UI
+    public GameObject pointer; // Reference to the pointer UI element
+    public GameObject text; // Reference to the text UI element
     private GameObject selectedInjection;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private bool isInteractable = false;
     private int originalLayer;
 
+    private float lastClickTime = 0f;
+    private float doubleClickThreshold = 0.3f; // Time threshold for double-click detection
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetMouseButtonDown(0)) // Left mouse button for double-click detection
         {
-            ToggleInteraction();
+            float timeSinceLastClick = Time.time - lastClickTime;
+            if (timeSinceLastClick <= doubleClickThreshold)
+            {
+                ToggleInteraction();
+            }
+            lastClickTime = Time.time;
         }
 
         if (isInteractable && selectedInjection != null)
@@ -39,6 +50,11 @@ public class Injection : MonoBehaviour
         }
     }
 
+    public bool IsInjectionActive()
+    {
+        return isInteractable;
+    }
+
     private void ToggleInteraction()
     {
         if (isInteractable)
@@ -47,6 +63,8 @@ public class Injection : MonoBehaviour
             isInteractable = false;
             selectedInjection.layer = originalLayer; // Restore original layer
             injectionImage.gameObject.SetActive(true); // Make the image visible
+            interaction_Info_UI.SetActive(true); // Make the interaction info UI visible
+            ShowPointerAndText(); // Show pointer and text
         }
         else
         {
@@ -66,6 +84,8 @@ public class Injection : MonoBehaviour
                     // Align the injection to the front of the camera
                     AlignInjectionToFrontOfCamera();
                     injectionImage.gameObject.SetActive(false); // Make the image disappear
+                    interaction_Info_UI.SetActive(false); // Make the interaction info UI disappear
+                    HidePointerAndText(); // Hide pointer and text
                 }
             }
         }
@@ -123,5 +143,17 @@ public class Injection : MonoBehaviour
             Debug.Log("Injection successful!");
             // You can add additional logic here, such as playing an animation or sound
         }
+    }
+
+    private void ShowPointerAndText()
+    {
+        pointer.SetActive(true);
+        text.SetActive(true);
+    }
+
+    private void HidePointerAndText()
+    {
+        pointer.SetActive(false);
+        text.SetActive(false);
     }
 }

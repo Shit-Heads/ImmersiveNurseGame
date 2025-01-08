@@ -1,6 +1,6 @@
 using System.Collections;
-using TMPro;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class QuestGiver : MonoBehaviour
@@ -12,10 +12,12 @@ public class QuestGiver : MonoBehaviour
     public TextMeshProUGUI experienceText;
     public TextMeshProUGUI goldText;
     public GameObject questWindow;
-    public ActivityManager activityManager; // Reference to ActivityManager
     public GameObject touchControlManager;
     public Goal goal;
     public Player Player;
+    public GuidanceSystem guidanceSystem; // Reference to the GuidanceSystem
+
+    public MissionWaypoint missionWaypoint;
 
     public Quest CurrentQuest => quests[currentQuestIndex];
 
@@ -38,13 +40,23 @@ public class QuestGiver : MonoBehaviour
         if (currentQuestIndex > 0 && !quests[currentQuestIndex - 1].isCompleted)
         {
             Debug.Log("Complete the previous quest first.");
-            return; // Prevent accepting the next quest before completing the previous one
+            return;
         }
 
         questWindow.SetActive(false);
         CurrentQuest.isActive = true;
         goal.playerInRange = false;
         touchControlManager.gameObject.GetComponent<TouchControlManager>().ToggleTouchUI(true);
+        Player.UpdateHealth(-1);
+
+        // Update guidance for the new quest
+        guidanceSystem.UpdateGuidance(CurrentQuest);
+
+        // Activate the MissionWaypoint for the current quest's target
+        if (missionWaypoint != null && CurrentQuest.target != null)
+        {
+            missionWaypoint.Activate(CurrentQuest.target);
+        }
     }
 
     public void CompleteQuest()
@@ -53,12 +65,12 @@ public class QuestGiver : MonoBehaviour
         {
             CurrentQuest.isActive = false;
             CurrentQuest.isCompleted = true;
-            Player.experience += CurrentQuest.experienceReward;
+            Player.UpdateExperience(CurrentQuest.experienceReward);
             Player.gold += CurrentQuest.goldReward;
 
             Debug.Log($"Quest '{CurrentQuest.title}' completed!");
 
-            // Move to the next quest if available
+            // Move to the next quest
             if (currentQuestIndex < quests.Count - 1)
             {
                 currentQuestIndex++;
@@ -67,7 +79,15 @@ public class QuestGiver : MonoBehaviour
             {
                 Debug.Log("All quests completed!");
             }
+
+            // Deactivate the MissionWaypoint
+            if (missionWaypoint != null)
+            {
+                missionWaypoint.Deactivate();
+            }
+
+            // Clear guidance
+            guidanceSystem.ClearGuidance();
         }
     }
-
 }

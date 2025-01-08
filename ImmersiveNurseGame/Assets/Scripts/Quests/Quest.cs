@@ -12,6 +12,8 @@ public class Quest
     public int experienceReward;
     public int goldReward;
     public QuestCompletionType completionType; // Type of quest completion
+
+    public Transform target; // Target for the quest
 }
 
 public enum QuestCompletionType
@@ -21,6 +23,3 @@ public enum QuestCompletionType
     DefeatEnemy,
     CustomAction // For special or custom actions
 }
-
-
-

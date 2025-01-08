@@ -9,10 +9,18 @@ public class Player : MonoBehaviour
     public int gold = 1000;
 
     public Quest quest;
-    public void GoBattle()
+
+    public void UpdateHealth(int amount)
     {
-        health -= 1;
-        experience += 10;
-        gold += 100;
+        health += amount;
+        // Update the health in the player window
+        // This should trigger the UI update logic
+    }
+
+    public void UpdateExperience(int amount)
+    {
+        experience += amount;
+        // Update the experience in the player window
+        // This should trigger the UI update logic
     }
 }

@@ -33,10 +33,7 @@ public class LeaderboardManager : MonoBehaviour
     }
 
     public void hideLeaderboard(){
-        if(isVisible){
-            leaderboard.SetActive(false);
-            isVisible = false;
-        }
+        leaderboard.SetActive(false);
     }
 
     public void showLeaderboard(){

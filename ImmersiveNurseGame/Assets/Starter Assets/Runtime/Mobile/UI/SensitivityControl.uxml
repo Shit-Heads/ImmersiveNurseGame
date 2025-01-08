@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:SliderInt picking-mode="Ignore" label="Sensitivity" value="42" high-value="100" style="justify-content: space-between; align-self: center; align-items: center; top: 267px; height: 54px; width: 669px;" />
+    <ui:Button text="Save" parse-escape-sequences="true" display-tooltip-when-elided="true" style="text-overflow: clip; height: 50px; width: 236px; left: 549px; bottom: auto; top: 495px;" />
+    <ui:Label tabindex="-1" text="Adjust Sensitivity" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; white-space: nowrap; text-overflow: clip; top: 31px; font-size: 43px;" />
+</ui:UXML>

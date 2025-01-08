@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 1971964690}
     - target: {fileID: 2746934525284066093, guid: d007771766481bc4687336dd26b55282, type: 3}
       propertyPath: LookMagnitudeMultiplier
-      value: 40
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7345196694595056636, guid: d007771766481bc4687336dd26b55282, type: 3}
       propertyPath: m_LocalPosition.x

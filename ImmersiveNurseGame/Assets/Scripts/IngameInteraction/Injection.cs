@@ -21,6 +21,8 @@ public class Injection : MonoBehaviour
     private float lastClickTime = 0f;
     private float doubleClickThreshold = 0.3f; // Time threshold for double-click detection
 
+    public InjectPatient ip;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) // Left mouse button for double-click detection
@@ -141,6 +143,7 @@ public class Injection : MonoBehaviour
         {
             // Injection is successful
             Debug.Log("Injection successful!");
+            ip.InjectPlayer();
             // You can add additional logic here, such as playing an animation or sound
         }
     }

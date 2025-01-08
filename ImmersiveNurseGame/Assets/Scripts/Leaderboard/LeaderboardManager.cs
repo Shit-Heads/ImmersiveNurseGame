@@ -32,6 +32,21 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 
+    public void hideLeaderboard(){
+        if(isVisible){
+            leaderboard.SetActive(false);
+            isVisible = false;
+        }
+    }
+
+    public void showLeaderboard(){
+        if(!isVisible){
+            GetLeaderBoard();
+            leaderboard.SetActive(true);
+            isVisible = true;
+        }
+    }
+
     void OnError(PlayFabError error){
         Debug.Log("Error while updating scores");
         Debug.Log(error.GenerateErrorReport());

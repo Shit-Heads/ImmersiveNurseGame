@@ -13,13 +13,14 @@ public class QuestGiver : MonoBehaviour
     public TextMeshProUGUI goldText;
     public GameObject questWindow;
     public GameObject touchControlManager;
-    public Goal goal;
+    // public Goal goal;
     public Player Player;
     public GuidanceSystem guidanceSystem; // Reference to the GuidanceSystem
 
     public MissionWaypoint missionWaypoint;
 
     public Quest CurrentQuest => quests[currentQuestIndex];
+    [SerializeField] private LeaderboardManager lm;
 
     public void OpenQuestWindow()
     {
@@ -45,7 +46,7 @@ public class QuestGiver : MonoBehaviour
 
         questWindow.SetActive(false);
         CurrentQuest.isActive = true;
-        goal.playerInRange = false;
+        // goal.playerInRange = false;
         touchControlManager.gameObject.GetComponent<TouchControlManager>().ToggleTouchUI(true);
         Player.UpdateHealth(-1);
 
@@ -67,6 +68,7 @@ public class QuestGiver : MonoBehaviour
             CurrentQuest.isCompleted = true;
             Player.UpdateExperience(CurrentQuest.experienceReward);
             Player.gold += CurrentQuest.goldReward;
+            lm.SendLeaderBoard(CurrentQuest.experienceReward);
 
             Debug.Log($"Quest '{CurrentQuest.title}' completed!");
 

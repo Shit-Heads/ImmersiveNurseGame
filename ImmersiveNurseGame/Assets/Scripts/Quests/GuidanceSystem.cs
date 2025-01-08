@@ -25,6 +25,9 @@ public class GuidanceSystem : MonoBehaviour
             case "Scenario 2: Before a Clean/Aseptic Procedure":
                 SetGuidance("Collect the 3 spheres.");
                 break;
+            case "Injection":
+                SetGuidance("Take the steps to reach the injection room");
+                break;
             default:
                 ClearGuidance();
                 break;

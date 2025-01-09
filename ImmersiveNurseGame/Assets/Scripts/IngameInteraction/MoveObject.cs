@@ -58,27 +58,33 @@ public class MoveObjects : MonoBehaviour {
             Vector3 curPos = new Vector3(posXNow, posYNow, dis.z);
 
             Vector3 worldPos = cam.ScreenToWorldPoint(curPos);
-            Vector3 moveDirection = worldPos - toDrag.position;
-
-            toDragRigidbody.velocity = moveDirection / Time.fixedDeltaTime;
-
-            previousPosition = toDrag.position;
+            if (toDrag != null && toDragRigidbody != null) {
+                Vector3 moveDirection = worldPos - toDrag.position;
+                toDragRigidbody.velocity = moveDirection / Time.fixedDeltaTime;
+                previousPosition = toDrag.position;
+            }
         }
 
         if (dragging && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)) {
             dragging = false;
             touched = false;
             previousPosition = Vector3.zero;
-            SetFreeProperties(toDragRigidbody);
+            if (toDragRigidbody != null) {
+                SetFreeProperties(toDragRigidbody);
+            }
         }
     }
 
     private void SetDraggingProperties (Rigidbody rb) {
-        rb.useGravity = false;
-        rb.drag = 20;
+        if (rb != null) {
+            rb.useGravity = false;
+            rb.drag = 20;
+        }
     }
 
     private void SetFreeProperties (Rigidbody rb) {
-        rb.drag = 5;
+        if (rb != null) {
+            rb.drag = 5;
+        }
     }
 }

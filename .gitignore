@@ -72,3 +72,7 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+ImmersiveNurseGame/Recordings/Movie_003.mp4
+ImmersiveNurseGame/Recordings/Movie_002.mp4
+ImmersiveNurseGame/Recordings/Movie_001.mp4
+/ImmersiveNurseGame/Recordings

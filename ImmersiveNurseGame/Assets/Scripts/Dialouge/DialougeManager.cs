@@ -8,8 +8,8 @@ public class DialougeManager : MonoBehaviour
     public TMP_Text nameText;
     public TMP_Text dialougeText;
     public AudioSource dialougeAudio;
-    public Animator animator;
-    public GameObject nextButton;
+    // public Animator animator;
+    // public GameObject nextButton;
     private Queue<string> sentences;
     private Queue<AudioClip> audioClips;
 
@@ -17,17 +17,19 @@ public class DialougeManager : MonoBehaviour
     {
         sentences = new Queue<string>();
         audioClips = new Queue<AudioClip>();
-        nextButton.SetActive(false);
+        // nextButton.SetActive(false);
     }
 
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.LeftBracket)){
+            DisplayNextSentence();
+        }
     }
 
     public void StartDialouge(Dialouge dialouge)
     {
-        animator.SetBool("IsOpen", true);
+        // animator.SetBool("IsOpen", true);
 
         nameText.text = dialouge.name;
 
@@ -57,11 +59,9 @@ public class DialougeManager : MonoBehaviour
         string sentence = sentences.Dequeue();
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
-
-        if(audioClips.Count == 0){
-            AudioClip audio = audioClips.Dequeue();
-            dialougeAudio.PlayOneShot(audio, 1);
-        }
+        // Dialouge Audio
+        AudioClip audio = audioClips.Dequeue();
+        dialougeAudio.PlayOneShot(audio);
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -77,7 +77,7 @@ public class DialougeManager : MonoBehaviour
     public void EndDialouge()
     {
         Debug.Log("End of dialouge");
-        animator.SetBool("IsOpen", false);
-        nextButton.SetActive(true);
+        // animator.SetBool("IsOpen", false);
+        // nextButton.SetActive(true);
     }
 }

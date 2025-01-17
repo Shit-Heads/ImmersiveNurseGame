@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dialouge : MonoBehaviour
+[System.Serializable]
+public class Dialouge
 {
     public string name;
 

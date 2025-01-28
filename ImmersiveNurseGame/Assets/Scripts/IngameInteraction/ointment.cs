@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class Ointment : MonoBehaviour
 {
@@ -8,7 +7,6 @@ public class Ointment : MonoBehaviour
     public GameObject new3dObject;
     public GameObject arrowIndicator;
     public GameObject wound;
-    public GameObject imagePrefab; // Prefab of the image to display
 
     public string targetTag; 
 
@@ -17,19 +15,13 @@ public class Ointment : MonoBehaviour
     private bool isDragging = false;
     private float elapsedTime = 0f;
     private float maxTime = 5f; // Time in seconds to allow image display
-    private GameObject instantiatedImage;
 
     private void Start()
     {
-        // Ensure the arrow and image are initially hidden
+        // Ensure the arrow is initially hidden
         if (arrowIndicator != null)
         {
             arrowIndicator.SetActive(false);
-        }
-
-        if (imagePrefab != null)
-        {
-            imagePrefab.SetActive(false);
         }
     }
 
@@ -82,10 +74,7 @@ public class Ointment : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(targetTag) && instantiatedImage != null)
-        {
-            Destroy(instantiatedImage);
-        }
+        // No need to destroy instantiated image here
     }
 
     private void ShowArrow()
@@ -104,37 +93,16 @@ public class Ointment : MonoBehaviour
     {
         isPlaced = true;
 
-        transform.position = patientPosition.position;
-        transform.rotation = patientPosition.rotation;
+        // Hide the ointment object
+        gameObject.SetActive(false);
 
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb != null)
+        // Show the new 3D object
+        if (new3dObject != null)
         {
-            rb.isKinematic = true;
+            new3dObject.SetActive(true);
         }
 
-        Collider collider = GetComponent<Collider>();
-        if (collider != null)
-        {
-            collider.enabled = false;
-        }
-
-        Debug.Log("Placed successfully!");
-
-        // Start coroutine to display image after 2 seconds
-        StartCoroutine(DisplayImageWithDelay(2f));
-    }
-
-    private IEnumerator DisplayImageWithDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (imagePrefab != null)
-        {
-            instantiatedImage = Instantiate(imagePrefab, patientPosition.position, Quaternion.identity);
-            instantiatedImage.SetActive(true);
-            Debug.Log("Image displayed after delay at position: " + patientPosition.position);
-        }
+        Debug.Log("Ointment placed and new 3D object shown!");
     }
 
     private void ShowSuccessMessage()

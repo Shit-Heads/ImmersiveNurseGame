@@ -1332,7 +1332,6 @@ GameObject:
   - component: {fileID: 1576386848}
   - component: {fileID: 1576386847}
   - component: {fileID: 1576386850}
-  - component: {fileID: 1576386851}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1440,23 +1439,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: PulseOximeter
   playerInRange: 0
---- !u!114 &1576386851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1576386845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 861dc9d1c7178654a89dee65bf4b1030, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patientFinger: {fileID: 1734681682}
-  snapDistance: 0.5
-  moveSpeed: 0
-  liftHeight: 0.2
-  resetKey: 114
 --- !u!1 &1588197041
 GameObject:
   m_ObjectHideFlags: 0

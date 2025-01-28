@@ -1285,7 +1285,7 @@ GameObject:
   - component: {fileID: 1028403948}
   - component: {fileID: 1028403953}
   m_Layer: 0
-  m_Name: Patient (1)
+  m_Name: Patient hand
   m_TagString: finger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

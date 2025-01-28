@@ -5,10 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
-  - MovingObject
   - Injection
   - Target
   - finger
+  - leg
+  - ointment
   layers:
   - Default
   - TransparentFX

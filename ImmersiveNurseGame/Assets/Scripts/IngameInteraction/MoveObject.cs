@@ -60,7 +60,7 @@ public class MoveObjects : MonoBehaviour {
             Vector3 worldPos = cam.ScreenToWorldPoint(curPos);
             if (toDrag != null && toDragRigidbody != null) {
                 Vector3 moveDirection = worldPos - toDrag.position;
-                toDragRigidbody.velocity = moveDirection / Time.fixedDeltaTime;
+                toDragRigidbody.MovePosition(toDrag.position + moveDirection);
                 previousPosition = toDrag.position;
             }
         }

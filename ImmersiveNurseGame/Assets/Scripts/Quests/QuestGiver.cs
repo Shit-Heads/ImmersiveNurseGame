@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuestGiver : MonoBehaviour
 {
@@ -50,7 +51,9 @@ public class QuestGiver : MonoBehaviour
         touchControlManager.gameObject.GetComponent<TouchControlManager>().ToggleTouchUI(true);
         Player.UpdateHealth(-1);
 
-        // Update guidance for the new quest
+        SceneManager.LoadScene(2);
+
+        /* // Update guidance for the new quest
         guidanceSystem.UpdateGuidance(CurrentQuest);
 
         // Activate the MissionWaypoint for the current quest's target
@@ -58,6 +61,7 @@ public class QuestGiver : MonoBehaviour
         {
             missionWaypoint.Activate(CurrentQuest.target);
         }
+        */
     }
 
     public void CompleteQuest()

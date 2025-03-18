@@ -75,8 +75,13 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        // MARK: Secondary Cam
         [Tooltip("The Seconday Virtual Camera to switch to")]
         public GameObject SecondaryVirtualCamera;
+
+        //MARK: visual guide
+        [Tooltip("The interaction guide")]
+        [SerializeField] private GameObject interactionGuide;
 
         [Tooltip("Player Mesh")]
         public GameObject PlayerMesh;
@@ -408,7 +413,7 @@ namespace StarterAssets
             }
         }
 
-        // Ar7 Custom Function for switching cameras
+        // Custom Function for switching cameras and triggering visual guide MARK:View Switch
         private void HandleCameraSwitch()
         {
             if (Input.GetKeyDown(KeyCode.V))
@@ -420,6 +425,7 @@ namespace StarterAssets
                 // Update the camera target reference
                 _mainCamera = isPrimaryActive ? SecondaryVirtualCamera : CinemachineCameraTarget;
 
+                interactionGuide.SetActive(isPrimaryActive);
                 PlayerMesh.SetActive(!isPrimaryActive);
             }
         }

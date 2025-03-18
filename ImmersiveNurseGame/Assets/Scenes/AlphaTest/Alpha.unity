@@ -145,7 +145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7345196694595056636, guid: d007771766481bc4687336dd26b55282, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.25107238
+      value: 6.2
       objectReference: {fileID: 0}
     - target: {fileID: 7345196694595056636, guid: d007771766481bc4687336dd26b55282, type: 3}
       propertyPath: m_LocalPosition.y
@@ -153,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7345196694595056636, guid: d007771766481bc4687336dd26b55282, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.7576213
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7345196694595056636, guid: d007771766481bc4687336dd26b55282, type: 3}
       propertyPath: m_LocalRotation.w
@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7369973626662382668, guid: d007771766481bc4687336dd26b55282, type: 3}
+      propertyPath: interactionGuide
+      value: 
+      objectReference: {fileID: 1336605361}
     - target: {fileID: 8953571336612731555, guid: d007771766481bc4687336dd26b55282, type: 3}
       propertyPath: m_Name
       value: Nurse_Controller
@@ -278,6 +282,14 @@ PrefabInstance:
     - target: {fileID: 517302714152768144, guid: 2fb103c0fa8bf9347a81e5a542e5b990, type: 3}
       propertyPath: m_Name
       value: InteractionVisualGuide
+      objectReference: {fileID: 0}
+    - target: {fileID: 517302714152768144, guid: 2fb103c0fa8bf9347a81e5a542e5b990, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2158431146376385515, guid: 2fb103c0fa8bf9347a81e5a542e5b990, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2843896301286234262, guid: 2fb103c0fa8bf9347a81e5a542e5b990, type: 3}
       propertyPath: m_Pivot.x
@@ -493,7 +505,6 @@ GameObject:
   - component: {fileID: 226989858}
   - component: {fileID: 226989860}
   - component: {fileID: 226989861}
-  - component: {fileID: 226989862}
   - component: {fileID: 226989863}
   m_Layer: 0
   m_Name: GameManager
@@ -574,21 +585,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guidanceText: {fileID: 25326819}
---- !u!114 &226989862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226989857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 113dcdc685302ee4fa30de362d871efd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interaction_Info_UI: {fileID: 114978706}
-  pointerImage: {fileID: 114978707}
-  injectionScript: {fileID: 543861882}
 --- !u!114 &226989863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -923,15 +919,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 167705bb02bedfa4db2850f48ac8c5fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCameraTransform: {fileID: 1768509}
-  injectionOffset: {x: 0, y: -0.5, z: 1.5}
-  injectionImage: {fileID: 114978707}
   patientTransform: {fileID: 1356527009}
-  injectionDistanceThreshold: 1
-  interaction_Info_UI: {fileID: 114978706}
-  pointer: {fileID: 114978708}
-  text: {fileID: 114978706}
-  ip: {fileID: 1710066447}
+  snapDistance: 0.5
+  moveSpeed: 5
 --- !u!65 &543861883
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1854,6 +1844,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1315350887}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1336605361 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 517302714152768144, guid: 2fb103c0fa8bf9347a81e5a542e5b990, type: 3}
+  m_PrefabInstance: {fileID: 114978704}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1356527008
 GameObject:
   m_ObjectHideFlags: 0

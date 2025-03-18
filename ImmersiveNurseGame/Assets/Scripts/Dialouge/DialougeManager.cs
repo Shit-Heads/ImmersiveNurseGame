@@ -5,6 +5,7 @@ using TMPro;
 
 public class DialougeManager : MonoBehaviour
 {
+    [Header(" ] for next dialouge")]
     public TMP_Text nameText;
     public TMP_Text dialougeText;
     public AudioSource dialougeAudio;
@@ -12,6 +13,7 @@ public class DialougeManager : MonoBehaviour
     // public GameObject nextButton;
     private Queue<string> sentences;
     private Queue<AudioClip> audioClips;
+
 
     void Start()
     {

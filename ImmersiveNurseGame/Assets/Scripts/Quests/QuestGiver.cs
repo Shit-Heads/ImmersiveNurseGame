@@ -96,4 +96,9 @@ public class QuestGiver : MonoBehaviour
             guidanceSystem.ClearGuidance();
         }
     }
+
+    void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
 }
